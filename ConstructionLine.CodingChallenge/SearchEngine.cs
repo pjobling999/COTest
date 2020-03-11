@@ -16,33 +16,8 @@ namespace ConstructionLine.CodingChallenge
         {
             //set up variables to hold return data
             var shirts = new List<Shirt>();
-            var totalSizes = new List<SizeCount>()
-            { new SizeCount(){ Size = Size.Small, Count = 0 },
-              new SizeCount(){ Size = Size.Medium, Count = 0 },
-              new SizeCount(){ Size = Size.Large, Count = 0 } };
-            var totalColors = new List<ColorCount>()
-            { new ColorCount() { Color = Color.Red, Count = 0 },
-              new ColorCount() { Color = Color.Blue, Count = 0 },
-              new ColorCount() { Color = Color.Yellow, Count = 0 },
-              new ColorCount() { Color = Color.White, Count = 0 },
-              new ColorCount() { Color = Color.Black, Count = 0 } };
-
-
-            //store index of count objects for fast lookup during loop
-            var sizeIndexes = new Dictionary<string, int>()
-            { 
-                [Size.Small.Id.ToString()] =  0,
-                [Size.Medium.Id.ToString()] = 1,
-                [Size.Large.Id.ToString()] = 2
-            };
-            var colourIndexes = new Dictionary<string, int>()
-            {
-                [Color.Red.Id.ToString()] = 0,
-                [Color.Blue.Id.ToString()] = 1,
-                [Color.Yellow.Id.ToString()] = 2,
-                [Color.White.Id.ToString()] = 3,
-                [Color.Black.Id.ToString()] = 4
-            };
+            var totalSizes = Size.All.Select(x => new SizeCount() { Size = x, Count = 0 }).ToList();
+            var totalColors = Color.All.Select(x => new ColorCount() { Color = x, Count = 0 }).ToList();
 
             //one pass through
             foreach (var shirt in _shirts)
@@ -51,8 +26,8 @@ namespace ConstructionLine.CodingChallenge
                 {
                     shirts.Add(shirt);
 
-                    totalSizes[sizeIndexes[shirt.Size.Id.ToString()]].Count++;
-                    totalColors[colourIndexes[shirt.Color.Id.ToString()]].Count++;
+                    totalSizes[Size.SizeIndexes()[shirt.Size.Id.ToString()]].Count++;
+                    totalColors[Color.ColourIndexes()[shirt.Color.Id.ToString()]].Count++;
                 }
             }
 
