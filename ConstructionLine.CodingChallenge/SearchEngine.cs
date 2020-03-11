@@ -18,6 +18,8 @@ namespace ConstructionLine.CodingChallenge
             var shirts = new List<Shirt>();
             var totalSizes = Size.All.Select(x => new SizeCount() { Size = x, Count = 0 }).ToList();
             var totalColors = Color.All.Select(x => new ColorCount() { Color = x, Count = 0 }).ToList();
+            var sizeIndex = Size.SizeIndexes();
+            var colorIndex = Color.ColourIndexes();
 
             //one pass through
             foreach (var shirt in _shirts)
@@ -26,8 +28,8 @@ namespace ConstructionLine.CodingChallenge
                 {
                     shirts.Add(shirt);
 
-                    totalSizes[Size.SizeIndexes()[shirt.Size.Id.ToString()]].Count++;
-                    totalColors[Color.ColourIndexes()[shirt.Color.Id.ToString()]].Count++;
+                    totalSizes[sizeIndex[shirt.Size.Id.ToString()]].Count++;
+                    totalColors[colorIndex[shirt.Color.Id.ToString()]].Count++;
                 }
             }
 
