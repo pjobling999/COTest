@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace ConstructionLine.CodingChallenge
@@ -6,10 +6,14 @@ namespace ConstructionLine.CodingChallenge
     public class SearchEngine
     {
         private readonly List<Shirt> _shirts;
+        private readonly Dictionary<string, int> _sizeIndex;
+        private readonly Dictionary<string, int> _colorIndex;
 
         public SearchEngine(List<Shirt> shirts)
         {
             _shirts = shirts;
+            _sizeIndex = Size.SizeIndexes();
+            _colorIndex = Color.ColourIndexes();
         }
 
         public SearchResults Search(SearchOptions options)
@@ -18,9 +22,7 @@ namespace ConstructionLine.CodingChallenge
             var shirts = new List<Shirt>();
             var totalSizes = Size.All.Select(x => new SizeCount() { Size = x, Count = 0 }).ToList();
             var totalColors = Color.All.Select(x => new ColorCount() { Color = x, Count = 0 }).ToList();
-            var sizeIndex = Size.SizeIndexes();
-            var colorIndex = Color.ColourIndexes();
-
+            
             //one pass through
             foreach (var shirt in _shirts)
             {
@@ -28,8 +30,8 @@ namespace ConstructionLine.CodingChallenge
                 {
                     shirts.Add(shirt);
 
-                    totalSizes[sizeIndex[shirt.Size.Id.ToString()]].Count++;
-                    totalColors[colorIndex[shirt.Color.Id.ToString()]].Count++;
+                    totalSizes[_sizeIndex[shirt.Size.Id.ToString()]].Count++;
+                    totalColors[_colorIndex[shirt.Color.Id.ToString()]].Count++;
                 }
             }
 
