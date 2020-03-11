@@ -22,6 +22,18 @@ namespace ConstructionLine.CodingChallenge
         public static Color White = new Color(Guid.NewGuid(), "White");
         public static Color Black = new Color(Guid.NewGuid(), "Black");
 
+        public static Dictionary<string, int> ColourIndexes()
+        {
+            int index = 0;
+            var colourIndexes = new Dictionary<string, int>();
+            foreach (var color in Color.All)
+            {
+                colourIndexes.Add(color.Id.ToString(), index);
+                index++;
+            }
+
+            return colourIndexes;
+        }
 
         public static List<Color> All =
             new List<Color>
