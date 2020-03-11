@@ -42,9 +42,8 @@ namespace ConstructionLine.CodingChallenge.Tests
 
             AssertResults(results.Shirts, options);
 
-            //changed these to results.Shirts as instructions say to take into account selected options
-            AssertSizeCounts(results.Shirts, options, results.SizeCounts);
-            AssertColorCounts(results.Shirts, options, results.ColorCounts);
+            AssertSizeCounts(_shirts, options, results.SizeCounts);
+            AssertColorCounts(_shirts, options, results.ColorCounts);
         }
     }
 }
